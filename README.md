@@ -1,16 +1,99 @@
-# React + Vite
+# Photo Gallery Web App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple, responsive photo gallery built with **React**, **Vite**, and
+**Tailwind CSS**. It loads photos from the Picsum Photos API and lets
+users search by author and save favourite photos.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+-   Loads 30 photos from the Picsum Photos API.
+-   Shows a loading spinner while photos load.
+-   Shows an error message if photos cannot be loaded.
+-   Responsive grid: 1 column on mobile, 2 on tablets, and 4 on larger
+    screens.
+-   Search photos by author name as you type.
+-   Add or remove favourites with the heart button.
+-   Saves favourites in `localStorage`, so they stay saved after
+    refreshing.
+-   Uses a custom `useFetchPhotos` hook to fetch photos.
+-   Uses `useReducer` to manage favourites.
+-   Uses `useCallback` and `useMemo` for the search and filtering logic.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+-   React
+-   Vite
+-   Tailwind CSS
+-   JavaScript
+-   Picsum Photos API
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Requirements
+
+Install Node.js and npm if you do not already have them.
+
+### 1. Install dependencies
+
+Open a terminal in the project folder and run:
+
+``` bash
+npm install
+```
+
+### 2. Start the development server
+
+``` bash
+npm run dev
+```
+
+Open the local URL shown in the terminal. It is usually
+`http://localhost:5173/`.
+
+## API Used
+
+The app fetches photo details from:
+
+`https://picsum.photos/v2/list?limit=30`
+
+Photo images are also loaded from Picsum Photos.
+
+## Project Structure
+
+``` text
+src/
+├── components/
+│   ├── Gallery.jsx
+│   └── PhotoCard.jsx
+├── hooks/
+│   └── useFetchPhotos.js
+├── reducers/
+│   └── favouritesReducer.js
+├── App.jsx
+├── main.jsx
+└── index.css
+```
+
+## How It Works
+
+-   **Fetching photos:** `useFetchPhotos` gets the photo data and tracks
+    loading and error states.
+-   **Searching:** The search box filters photos by author name without
+    making another API request.
+-   **Favourites:** `useReducer` adds or removes photo IDs from the
+    favourites list.
+-   **Saving favourites:** The app stores favourite IDs in
+    `localStorage` and loads them when the app starts.
+-   **Performance:** `useCallback` keeps the search handler function
+    from being recreated on every render. `useMemo` reuses the filtered
+    list when its inputs have not changed.
+
+## Future Improvements
+
+-   Add a separate view for favourite photos.
+-   Add pagination or a load-more button.
+-   Add a retry button for fetch errors.
+
+## Author
+
+Created as a React photo gallery project.
